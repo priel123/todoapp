@@ -1,0 +1,30 @@
+
+ 
+    <div ng-controller="TaskController">
+        Create a Task:
+		ID:
+        <input type="number" ng-model="idView" />
+		Title:
+		<input  type="text" ng-model="titleView"  />
+		Description:
+		<input  type="text" ng-model="descView"  />
+        <button ng-click="saveTask()">Create!</button>
+		
+       
+         
+        <div>Answer: {{answer}}</div>
+		
+  
+	<!--------------------------------------List Tasks---------------------------->
+	
+	
+	
+<p>selected: {{selected}}</p>
+  <ul>
+    <li ng:repeat="taskItem in tasksList">
+       <a href="#/task/{{taskItem.ID}}">{{taskItem.Title}}</a>
+    </li>
+  </ul>
+</div>​
+
+<!--------------------------------------------End List Tasks----------------------->
