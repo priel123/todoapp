@@ -1,4 +1,5 @@
 var myApp = angular.module('todo',  ['ngRoute','todoControllers']);
+////////routing///////
 myApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
@@ -16,11 +17,10 @@ myApp.config(['$routeProvider',
   }]);
    //////////////////////////task factory
   myApp.factory('taskFactory',  [function() {
-  
-     return {
-	 
-	createTask: function(id,title,desc,whenSaved)
-   {
+	return {
+		/////create new task
+		createTask: function(id,title,desc,whenSaved)
+		{
 		var Task = Parse.Object.extend("Task");
 		var task = new Task();
 		task.set("ID", id);
@@ -41,73 +41,69 @@ myApp.config(['$routeProvider',
 		});
 		
 		return "";
-	},
-	getAllTasks: function(func)
-	{
-		var Task = Parse.Object.extend("Task");
-		var query = new Parse.Query(Task);
-		query.find({
+		},
+		//////getAllTasks
+		getAllTasks: function(func)
+		{
+			var Task = Parse.Object.extend("Task");
+			var query = new Parse.Query(Task);
+			query.find({
 			success: function (results) {
-			
-		func(results);
-    },
-    error: function (error) {
-        alert("Error: " + error.code + " " + error.message);
-    }
+				func(results);
+		},
+			error: function (error) {
+				alert("Error: " + error.code + " " + error.message);
+		}
 	
-	});
-	return "";
-	}
-	,
-	getTasks: function(ID,func)
-	{
-		var x=parseInt(ID,10);
-		var Task = Parse.Object.extend("Task");
-		var query = new Parse.Query(Task);
-		query.equalTo("ID", x);
-		query.find({
-			success: function (results) {
-			
-		func(results[0]);
-    },
-    error: function (error) {
-        alert("Error: " + error.code + " " + error.message);
-    }
+			});
+		return "";
+		}
+		,
+		/////get a task
+		getTasks: function(ID,func)
+		{
+			var x=parseInt(ID,10);
+			var Task = Parse.Object.extend("Task");
+			var query = new Parse.Query(Task);
+			query.equalTo("ID", x);
+			query.find({
+				success: function (results) {	
+					func(results[0]);
+				},	
+				error: function (error) {
+					alert("Error: " + error.code + " " + error.message);
+				}
 	
-	});
-	return "";
-	}
-	,
-	updateTask: function(ID,Title,Description,func)
-	{
-		var x=parseInt(ID,10);
-		var Task = Parse.Object.extend("Task");
-		var query = new Parse.Query(Task);
-		query.equalTo("ID", x);
-		query.find({
-			success: function (results) {
-			
-		var res=results[0];
-		res.set("Title",Title);
-		res.set("Description",Description);
-		res.save(null, {
-		  success: function(res,ans) {
-		
-			func("saved");
-		
-		  },
-		  error: function(res, error,ans) {
-		 
-		   func( "not saved");
-		
-		  }
+			});
+		return "";
+		}
+		,
+		/////update a task
+		updateTask: function(ID,Title,Description,func)
+		{
+			var x=parseInt(ID,10);
+			var Task = Parse.Object.extend("Task");
+			var query = new Parse.Query(Task);
+			query.equalTo("ID", x);
+			query.find({
+				success: function (results) {	
+					var res=results[0];
+					res.set("Title",Title);
+					res.set("Description",Description);
+					res.save(null, {
+						success: function(res,ans) {
+							func("saved");
+						},
+						error: function(res, error,ans) {
+							func( "not saved");
+						}
+						});
+		},
+				error: function (error) {
+					alert("Error: " + error.code + " " + error.message);
+				}
+	
 		});
-    },
-    error: function (error) {
-        alert("Error: " + error.code + " " + error.message);
-    }
-	
-	});
-	return "";
-	}
+		return "";
+		}
 }}]);

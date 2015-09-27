@@ -1,10 +1,10 @@
  <div ng-controller="TaskDetails">
-		TaskID: <span>{{taskID}}</span>
-		Title:
-		<input id="tit" type="text" ng-model="detailstitleView" ng-value="Title" />
-		Description:
-		<input id="desc" type="text" ng-model="detailsdescView" ng-value="Description" />
-        <button ng-click="saveEditedTask()">Save Changes!</button>
+		<p>TaskID: <span>{{taskID}}</span></p>
+		<p>Title:</p>
+		<input id="tit" type="text" ng-model="detailstitleView" ng-value="Title" /><br>
+		Description:<br>
+		<input id="desc" type="text" ng-model="detailsdescView" ng-value="Description" /><br>
+        <button ng-click="saveEditedTask()">Save Changes!</button><br>
 		 <div>{{isSaved}}</div>
        
  
